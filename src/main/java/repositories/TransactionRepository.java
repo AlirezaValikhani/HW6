@@ -1,6 +1,5 @@
-package Repositories;
+package repositories;
 
-import model.CreditCard;
 import model.Transaction;
 
 import java.sql.*;

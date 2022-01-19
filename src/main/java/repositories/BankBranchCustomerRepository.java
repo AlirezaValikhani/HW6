@@ -1,7 +1,6 @@
-package Repositories;
+package repositories;
 
 import model.BankBranch;
-import model.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

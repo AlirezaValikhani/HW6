@@ -1,6 +1,5 @@
-package Repositories;
+package repositories;
 
-import model.Account;
 import model.BankBranch;
 
 import java.sql.Connection;

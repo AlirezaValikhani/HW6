@@ -1,7 +1,5 @@
-package Repositories;
+package repositories;
 
-import model.BankBranch;
-import model.Customer;
 import model.Employee;
 
 import java.sql.Connection;
