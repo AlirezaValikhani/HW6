@@ -9,20 +9,21 @@ import java.sql.SQLException;
 public class BankBranchCustomerRepository {
     private Connection connection;
 
+
     public BankBranchCustomerRepository(Connection connection) {
         this.connection = connection;
     }
 
     public void creatBankBranchCustomerTable() throws SQLException {
-        String bankBranchTable = "CREATE TABLE IF NOT EXISTS bank_branch_customer(" +
+        String bankBranchCustomerTable = "CREATE TABLE IF NOT EXISTS bank_branch_customer(" +
                 "id                SERIAL PRIMARY KEY," +
                 "customer_id       INTEGER ," +
                 "bank_branch_id    INTEGER," +
-                "CONSTRAINT fk_customer REFERENCES customer(id)," +
-                "CONSTRAINT fk_bank_branch REFERENCES bank_branch(id)" +
-                ")";
-        connection.prepareStatement(bankBranchTable).execute();
-        connection.close();
+                "FOREIGN KEY (customer_id) REFERENCES customer(id)," +
+                "FOREIGN KEY (bank_branch_id) REFERENCES bank_branch(id)" +
+                ");";
+        PreparedStatement preparedStatement = connection.prepareStatement(bankBranchCustomerTable);
+        preparedStatement.execute();
     }
 
 

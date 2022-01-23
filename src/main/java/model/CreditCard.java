@@ -6,10 +6,11 @@ import java.util.List;
 
 public class CreditCard {
     private Integer id;
-    private Integer secondPassword;
-    private Integer cardNumber;
+    private Long password;
+    private Long balance;
+    private Long secondPassword;
+    private Long cardNumber;
     private String holderName;
-    private Integer accountBalance;
     private Integer CVV2;
     private Date expirationDate;
     private Integer accountId;
@@ -21,18 +22,22 @@ public class CreditCard {
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public CreditCard(Integer id,Integer secondPassword,Integer cardNumber, String holderName, Integer accountBalance,Integer CVV2, Date expirationDate,Integer accountId,Integer transactionId, Account account, List<Transaction> transactions) {
+    public CreditCard(Integer id,Long password,Long balance,Long secondPassword,Long cardNumber, String holderName,Integer CVV2, Date expirationDate,Integer accountId,Integer transactionId, Account account, List<Transaction> transactions) {
         this.id =id;
+        this.password =password;
+        this.balance =balance;
         this.secondPassword = secondPassword;
         this.cardNumber = cardNumber;
         this.holderName = holderName;
-        this.accountBalance = accountBalance;
         this.CVV2 = CVV2;
         this.expirationDate = expirationDate;
         this.accountId = accountId;
         this.transactionId = transactionId;
         this.account = account;
         this.transactions = new ArrayList<Transaction>();
+    }
+
+    public CreditCard(int i, int i1, int i2, int i3, long l, String alirezaValikhani, int i4, int i5) {
     }
 
     public Integer getId() {
@@ -43,11 +48,27 @@ public class CreditCard {
         this.id = id;
     }
 
-    public Integer getSecondPassword() {
+    public Long getPassword() {
+        return password;
+    }
+
+    public void setPassword(Long password) {
+        this.password = password;
+    }
+
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
+    public Long getSecondPassword() {
         return secondPassword;
     }
 
-    public void setSecondPassword(Integer secondPassword) {
+    public void setSecondPassword(Long secondPassword) {
         this.secondPassword = secondPassword;
     }
 
@@ -67,11 +88,11 @@ public class CreditCard {
         this.transactionId = transactionId;
     }
 
-    public Integer getCardNumber() {
+    public Long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Integer cardNumber) {
+    public void setCardNumber(Long cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -81,14 +102,6 @@ public class CreditCard {
 
     public void setHolderName(String holderName) {
         this.holderName = holderName;
-    }
-
-    public Integer getAccountBalance() {
-        return accountBalance;
-    }
-
-    public void setAccountBalance(Integer accountBalance) {
-        this.accountBalance = accountBalance;
     }
 
     public Integer getCVV2() {

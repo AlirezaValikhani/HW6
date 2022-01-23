@@ -32,6 +32,9 @@ public class Account {
     public Account(int id, long balance, String account_type, int customer_id, int bank_id, int credit_card_id) {
     }
 
+    public Account(String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer accountId) {
+    }
+
 
     public Integer getCustomerId() {
         return customerId;

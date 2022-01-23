@@ -24,12 +24,12 @@ public class AccountRepository {
                 "customer_id    INTEGER ," +
                 "bank_id        INTEGER ," +
                 "credit_card_id INTEGER," +
-                "CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer(id);" +
-                "CONSTRAINT fk_bank FOREIGN KEY (bank_id) REFERENCES bank_branch(id);" +
-                "CONSTRAINT fk_credit_card FOREIGN KEY (credit_card_id) REFERENCES credit_card(id);" +
-                ")";
-        connection.prepareStatement(accountTable).execute();
-        connection.close();
+                "CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer(id)," +
+                "CONSTRAINT fk_bank FOREIGN KEY (bank_id) REFERENCES bank_branch(id)," +
+                "CONSTRAINT fk_credit_card FOREIGN KEY (credit_card_id) REFERENCES credit_card(id)" +
+                ");";
+        PreparedStatement preparedStatement = connection.prepareStatement(accountTable);
+        preparedStatement.execute();
     }
 
     public void insertIntoAccount(Account account) throws SQLException {
@@ -84,10 +84,10 @@ public class AccountRepository {
         }
     }
 
-    /*public Account findById(ََAccount account) throws SQLException {
+    /*public Account findById(ََInteger id) throws SQLException {
                 PreparedStatement preparedStatement = connection.prepareStatement(
                         "SELECT * FROM account WHERE id = ?;");
-                preparedStatement.setLong(1, account.getId());
+                preparedStatement.setLong(1,id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 Account account1 = new Account(resultSet.getInt("id")
@@ -121,4 +121,6 @@ public class AccountRepository {
         }
         return null;
     }
+
+
 }

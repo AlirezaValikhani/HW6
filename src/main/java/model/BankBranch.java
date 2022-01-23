@@ -22,7 +22,7 @@ public class BankBranch {
         this.accounts = new ArrayList<>();
     }
 
-    public BankBranch(int id, String name, int account_id, int customer_id, int employee_id) {
+    public BankBranch() {
     }
 
     public Integer getAccountId() {

@@ -21,10 +21,10 @@ public class BankBranchRepository {
                 "account_id     INTEGER ," +
                 "customer_id    INTEGER ," +
                 "employee_id    INTEGER," +
-                "CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employee(id);" +
-                ")";
-        connection.prepareStatement(bankBranchTable).execute();
-        connection.close();
+                "CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employee(id)" +
+                ");";
+    PreparedStatement preparedStatement = connection.prepareStatement(bankBranchTable);
+    preparedStatement.execute();
     }
 
     public void insertIntoBankBranch(BankBranch bankBranch) throws SQLException {

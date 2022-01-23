@@ -20,19 +20,18 @@ public class CustomerRepository {
                 "first_name     VARCHAR (255)," +
                 "last_name      VARCHAR (255) ," +
                 "national_cade  VARCHAR (255) ," +
-                "phone_number   VARCHAR (255) " +
+                "phone_number   VARCHAR (255) ," +
                 "email          VARCHAR (255)," +
                 "address        VARCHAR (255)," +
-                "account_id     INTEGER," +
-                "customer_id    INTEGER ," +
-                ")";
-        connection.prepareStatement(customerTable).execute();
-        connection.close();
+                "account_id     INTEGER" +
+                ");";
+        PreparedStatement preparedStatement = connection.prepareStatement(customerTable);
+        preparedStatement.execute();
     }
 
     public void insertIntoCustomer(Customer customer) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO customer (first_name,last_name,national_cade,phone_number,email,address,account_id,customer_id) VALUES (?,?,?,?,?,?,?,?);");
+                "INSERT INTO customer (first_name,last_name,national_cade,phone_number,email,address,account_id) VALUES (?,?,?,?,?,?,?);");
         preparedStatement.setString(1,customer.getFirstName());
         preparedStatement.setString(2,customer.getLastName());
         preparedStatement.setString(3,customer.getNationalCode());
@@ -40,7 +39,6 @@ public class CustomerRepository {
         preparedStatement.setString(5,customer.getEmail());
         preparedStatement.setString(6,customer.getAddress());
         preparedStatement.setInt(7,customer.getAccountId());
-        preparedStatement.setInt(8,customer.getCustomerId());
         preparedStatement.executeUpdate();
         connection.close();
     }
@@ -61,7 +59,7 @@ public class CustomerRepository {
             if(existsById(customer.getId())){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
                         "UPDATE customer SET first_name = ? , last_name = ? ,national_code = ? ," +
-                                " phonenumber = ? , email = ? , address = ? , account_id = ? , customer_id = ?;");
+                                " phonenumber = ? , email = ? , address = ? , account_id = ?;");
                 preparedStatement.setString(1,customer.getFirstName());
                 preparedStatement.setString(2,customer.getLastName());
                 preparedStatement.setString(3,customer.getNationalCode());
@@ -69,7 +67,6 @@ public class CustomerRepository {
                 preparedStatement.setString(5,customer.getEmail());
                 preparedStatement.setString(6,customer.getAddress());
                 preparedStatement.setInt(7,customer.getAccountId());
-                preparedStatement.setInt(8,customer.getCustomerId());
                 preparedStatement.executeUpdate();
                 connection.close();
             }

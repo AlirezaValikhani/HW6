@@ -19,10 +19,9 @@ public class TransactionRepository {
                 "deposit        VARCHAR (255) ," +
                 "transfer       VARCHAR (255), " +
                 "creditCardId   INTEGER ," +
-                "CONSTRAINT fk_credit_card FOREIGN KEY (creditCardId) REFERENCES credit_card(id); " +
-                ")";
+                "CONSTRAINT fk_credit_card FOREIGN KEY (creditCardId) REFERENCES credit_card(id)" +
+                ");";
         connection.prepareStatement(transactionTable).execute();
-        connection.close();
     }
 
     public void insertIntoTransaction(Transaction transaction) throws SQLException {

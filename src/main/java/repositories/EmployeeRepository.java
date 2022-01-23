@@ -20,12 +20,11 @@ public class EmployeeRepository {
                 "first_name     VARCHAR (255)," +
                 "last_name      VARCHAR (255) ," +
                 "national_cade  VARCHAR (255) ," +
-                "phone_number   VARCHAR (255) " +
+                "phone_number   VARCHAR (255) ," +
                 "email          VARCHAR (255)," +
                 "address        VARCHAR (255)" +
-                ")";
+                ");";
         connection.prepareStatement(employeeTable).execute();
-        connection.close();
     }
 
     public void insertIntoEmployee(Employee employee) throws SQLException {

@@ -14,31 +14,30 @@ public class CreditCardRepository {
     public void creatCreditCardTable() throws SQLException {
         String creditCardTable = "CREATE TABLE IF NOT EXISTS credit_card(" +
                 "id                SERIAL PRIMARY KEY," +
-                "second_password   INTEGER," +
-                "card_number       INTEGER," +
+                "password          BIGINT ," +//put first pass here
+                "second_password   BIGINT," +
+                "card_number       BIGINT," +
                 "holder_name       VARCHAR (255) ," +
-                "account_balance   INTEGER ," +
-                "CVV2              INTEGER " +
+                "CVV2              INTEGER ," +
                 "expirationDate    DATE ," +
                 "account_id        INTEGER," +
-                "transactionId     INTEGER" +
-                ")";
+                "transactionId     BIGINT" +
+                ");";
         connection.prepareStatement(creditCardTable).execute();
-        connection.close();
     }
 
     public void insertIntoCreditCard(CreditCard creditCard) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO credit_card (second_password,cardNumber,holderName,accountBalance,CVV2,expirationDate" +
-                        ",accountId,transactionId,) VALUES (?,?,?,?,?,?,?,?);");
-        preparedStatement.setInt(1,creditCard.getCardNumber());
-        preparedStatement.setInt(2,creditCard.getSecondPassword());
-        preparedStatement.setString(3,creditCard.getHolderName());
-        preparedStatement.setInt(4,creditCard.getAccountBalance());
+                "INSERT INTO credit_card (password,second_password,cardNumber,holderName,CVV2,expirationDate" +
+                        ",accountId,transactionId,) VALUES (?,?,?,?,?,?,?);");
+        preparedStatement.setLong(1,creditCard.getPassword());
+        preparedStatement.setLong(2,creditCard.getSecondPassword());
+        preparedStatement.setLong(3,creditCard.getCardNumber());
+        preparedStatement.setString(4,creditCard.getHolderName());
         preparedStatement.setInt(5,creditCard.getCVV2());
         preparedStatement.setDate(6, (Date) creditCard.getExpirationDate());
         preparedStatement.setInt(7,creditCard.getAccountId());
-        preparedStatement.setInt(8,creditCard.getTransactionId());
+        preparedStatement.setLong(8,creditCard.getTransactionId());
         preparedStatement.executeUpdate();
         connection.close();
     }
@@ -58,16 +57,16 @@ public class CreditCardRepository {
         if(creditCard.getId() != null){
             if(existsById(creditCard.getId())){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
-                        "UPDATE credit_card SET second_password = ? ,cardNumber = ? , holderName = ? ,accountBalance = ? ," +
+                        "UPDATE credit_card SET password = ? ,second_password = ? ,cardNumber = ? , holderName = ? ," +
                                 " CVV2 = ? , expirationDate = ? , accountId = ?,transactionId = ?;");
-                preparedStatement.setInt(1,creditCard.getCardNumber());
-                preparedStatement.setInt(2,creditCard.getSecondPassword());
-                preparedStatement.setString(3,creditCard.getHolderName());
-                preparedStatement.setInt(4,creditCard.getAccountBalance());
+                preparedStatement.setLong(1,creditCard.getPassword());
+                preparedStatement.setLong(2,creditCard.getSecondPassword());
+                preparedStatement.setLong(3,creditCard.getCardNumber());
+                preparedStatement.setString(4,creditCard.getHolderName());
                 preparedStatement.setInt(5,creditCard.getCVV2());
                 preparedStatement.setDate(6, (Date) creditCard.getExpirationDate());
                 preparedStatement.setInt(7,creditCard.getAccountId());
-                preparedStatement.setInt(8,creditCard.getTransactionId());
+                preparedStatement.setLong(8,creditCard.getTransactionId());
                 preparedStatement.executeUpdate();
                 connection.close();
             }
@@ -78,11 +77,47 @@ public class CreditCardRepository {
         if (creditCard.getId() != null) {
             if (existsById(creditCard.getId())){
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                        "DELETE FROM employee WHERE id = ?;");
+                        "DELETE FROM credit_card WHERE id = ?;");
                 preparedStatement.setInt(1,creditCard.getId());
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
             }
         }
+    }
+
+    public Boolean findDestinationCreditCard(Long creditCard) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("SELECT * FROM credit_card WHERE card_number = ?;");
+        preparedStatement.setLong(1,creditCard);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) return true;
+        else return false;
+    }
+
+    public Boolean findSecondPassword(CreditCard creditCard) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("SELECT * FROM credit_card WHERE second_password = ?;");
+        preparedStatement.setLong(1,creditCard.getSecondPassword());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) return true;
+        else return false;
+    }
+
+    public Boolean findCVV2(Integer CVV2) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("SELECT * FROM credit_card WHERE CVV2 = ?;");
+        preparedStatement.setLong(1,CVV2);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) return true;
+        else return false;
+    }
+
+    public Boolean findExpirationDate(Date expirationDate) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement("SELECT * FROM credit_card WHERE CVV2 = ?;");
+        preparedStatement.setDate(1,expirationDate);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) return true;
+        else return false;
     }
 }
