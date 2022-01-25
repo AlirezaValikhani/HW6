@@ -22,8 +22,7 @@ public class CustomerRepository {
                 "national_cade  VARCHAR (255) ," +
                 "phone_number   VARCHAR (255) ," +
                 "email          VARCHAR (255)," +
-                "address        VARCHAR (255)," +
-                "account_id     INTEGER" +
+                "address        VARCHAR (255)" +
                 ");";
         PreparedStatement preparedStatement = connection.prepareStatement(customerTable);
         preparedStatement.execute();
@@ -31,14 +30,13 @@ public class CustomerRepository {
 
     public void insertIntoCustomer(Customer customer) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO customer (first_name,last_name,national_cade,phone_number,email,address,account_id) VALUES (?,?,?,?,?,?,?);");
+                "INSERT INTO customer (first_name,last_name,national_cade,phone_number,email,address) VALUES (?,?,?,?,?,?);");
         preparedStatement.setString(1,customer.getFirstName());
         preparedStatement.setString(2,customer.getLastName());
         preparedStatement.setString(3,customer.getNationalCode());
         preparedStatement.setString(4,customer.getPhoneNumber());
         preparedStatement.setString(5,customer.getEmail());
         preparedStatement.setString(6,customer.getAddress());
-        preparedStatement.setInt(7,customer.getAccountId());
         preparedStatement.executeUpdate();
         connection.close();
     }
@@ -59,14 +57,13 @@ public class CustomerRepository {
             if(existsById(customer.getId())){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
                         "UPDATE customer SET first_name = ? , last_name = ? ,national_code = ? ," +
-                                " phonenumber = ? , email = ? , address = ? , account_id = ?;");
+                                " phonenumber = ? , email = ? , address = ?;");
                 preparedStatement.setString(1,customer.getFirstName());
                 preparedStatement.setString(2,customer.getLastName());
                 preparedStatement.setString(3,customer.getNationalCode());
                 preparedStatement.setString(4,customer.getPhoneNumber());
                 preparedStatement.setString(5,customer.getEmail());
                 preparedStatement.setString(6,customer.getAddress());
-                preparedStatement.setInt(7,customer.getAccountId());
                 preparedStatement.executeUpdate();
                 connection.close();
             }

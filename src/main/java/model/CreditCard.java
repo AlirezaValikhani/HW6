@@ -6,23 +6,21 @@ import java.util.List;
 
 public class CreditCard {
     private Integer id;
-    private Long password;
+    private String password;
     private Long balance;
-    private Long secondPassword;
-    private Long cardNumber;
+    private String secondPassword;
+    private String cardNumber;
     private String holderName;
-    private Integer CVV2;
+    private String CVV2;
     private Date expirationDate;
-    private Integer accountId;
-    private Integer transactionId;
     private Account account;
     private List<Transaction> transactions;
 
-    public CreditCard() {
+    /*public CreditCard() {
         this.transactions = new ArrayList<Transaction>();
-    }
+    }*/
 
-    public CreditCard(Integer id,Long password,Long balance,Long secondPassword,Long cardNumber, String holderName,Integer CVV2, Date expirationDate,Integer accountId,Integer transactionId, Account account, List<Transaction> transactions) {
+    public CreditCard(Integer id,String password,Long balance,String secondPassword,String cardNumber, String holderName,String CVV2, Date expirationDate, Account account, List<Transaction> transactions) {
         this.id =id;
         this.password =password;
         this.balance =balance;
@@ -31,14 +29,27 @@ public class CreditCard {
         this.holderName = holderName;
         this.CVV2 = CVV2;
         this.expirationDate = expirationDate;
-        this.accountId = accountId;
-        this.transactionId = transactionId;
         this.account = account;
         this.transactions = new ArrayList<Transaction>();
     }
 
-    public CreditCard(int i, int i1, int i2, int i3, long l, String alirezaValikhani, int i4, int i5) {
+    public CreditCard(int id, long balance, String password, String second_password, String card_number, String holder_name, String cvv2, java.sql.Date expirationDate) {
+        this.id =id;
+        this.password =password;
+        this.balance =balance;
+        this.secondPassword = second_password;
+        this.cardNumber = card_number;
+        this.holderName = holder_name;
+        this.CVV2 = cvv2;
+        this.expirationDate = expirationDate;
+        this.transactions = new ArrayList<Transaction>();
     }
+
+    public CreditCard(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -48,11 +59,11 @@ public class CreditCard {
         this.id = id;
     }
 
-    public Long getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Long password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -64,35 +75,19 @@ public class CreditCard {
         this.balance = balance;
     }
 
-    public Long getSecondPassword() {
+    public String getSecondPassword() {
         return secondPassword;
     }
 
-    public void setSecondPassword(Long secondPassword) {
+    public void setSecondPassword(String secondPassword) {
         this.secondPassword = secondPassword;
     }
 
-    public Integer getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    public Integer getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public Long getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -104,11 +99,11 @@ public class CreditCard {
         this.holderName = holderName;
     }
 
-    public Integer getCVV2() {
+    public String getCVV2() {
         return CVV2;
     }
 
-    public void setCVV2(Integer CVV2) {
+    public void setCVV2(String CVV2) {
         this.CVV2 = CVV2;
     }
 

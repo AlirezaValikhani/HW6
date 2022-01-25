@@ -1,6 +1,7 @@
 package repositories;
 
 import model.BankBranch;
+import model.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,23 +28,23 @@ public class BankBranchCustomerRepository {
     }
 
 
-    public void insertIntoBankBranchCustomer(Integer id,BankBranch bankBranch) throws SQLException {
+    public void insertIntoBankBranchCustomer(Integer id, BankBranch bankBranch, Customer customer) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO bank_branch_customer (id,customer_id,bank_branch_id) VALUES (?,?,?);");
         preparedStatement.setInt(1,id);
-        preparedStatement.setInt(2,bankBranch.getCustomerId());
+        preparedStatement.setInt(2,customer.getId());
         preparedStatement.setInt(3,bankBranch.getId());
         preparedStatement.executeUpdate();
         connection.close();
     }
 
-    public void update(Integer id,BankBranch bankBranch) throws SQLException {
+    public void update(Integer id,BankBranch bankBranch,Customer customer) throws SQLException {
         if(bankBranch.getId() != null){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
                         "UPDATE bank_branch_customer SET id = ? , customer_id = ? ,bank_branch_id = ?;");
-                preparedStatement.setInt(1,id);
-                preparedStatement.setInt(2,bankBranch.getCustomerId());
-                preparedStatement.setInt(3,bankBranch.getId());
+            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(2,customer.getId());
+            preparedStatement.setInt(3,bankBranch.getId());
                 preparedStatement.executeUpdate();
                 connection.close();
             }

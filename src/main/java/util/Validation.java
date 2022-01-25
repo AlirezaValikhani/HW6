@@ -1,30 +1,17 @@
 package util;
 
-import model.Account;
-import model.CreditCard;
-import repositories.CreditCardRepository;
 
-import java.sql.Connection;
-import java.sql.Date;
+import model.CreditCard;
 import java.sql.SQLException;
 
 public class Validation {
-    private Connection connection;
-    private CreditCardRepository creditCardRepository;
-
-    public Validation(Connection connection, CreditCardRepository creditCardRepository) {
-        this.connection = connection;
-        this.creditCardRepository = creditCardRepository;
-    }
-
-    public Boolean informationValidation(CreditCard creditCard, Long amount) throws SQLException {
-        if (creditCardRepository.findSecondPassword(creditCard) &&
-                creditCardRepository.findCVV2(creditCard.getCVV2()) &&
-                creditCardRepository.findExpirationDate((Date) creditCard.getExpirationDate()) &&
-                creditCard.getBalance() > amount) {
+    public Boolean informationValidation(CreditCard creditCard, Long amount,String CVV2,String secondPassword) throws SQLException {
+        if (creditCard.getBalance() > amount + 600 && creditCard.getCVV2().equals(CVV2) &&
+                creditCard.getSecondPassword().equals(secondPassword)) {
             return true;
-        }else return false;
+        } else{
+            System.out.println("Your balance is not enough!!! ");
+            return false;
+        }
     }
-
-
 }

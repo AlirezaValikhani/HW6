@@ -20,27 +20,26 @@ public class AccountRepository {
         String accountTable = "CREATE TABLE IF NOT EXISTS account(" +
                 "id             SERIAL PRIMARY KEY," +
                 "balance        BIGINT," +
-                "account_type   VARCHAR(255)," +
-                "customer_id    INTEGER ," +
-                "bank_id        INTEGER ," +
                 "credit_card_id INTEGER," +
+                "bank_id        INTEGER," +
+                "customer_id    INTEGER ," +
                 "CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer(id)," +
                 "CONSTRAINT fk_bank FOREIGN KEY (bank_id) REFERENCES bank_branch(id)," +
                 "CONSTRAINT fk_credit_card FOREIGN KEY (credit_card_id) REFERENCES credit_card(id)" +
                 ");";
         PreparedStatement preparedStatement = connection.prepareStatement(accountTable);
         preparedStatement.execute();
+        connection.close();
     }
 
     public void insertIntoAccount(Account account) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO account (balance,account_type,customer_id,bank_id,credit_card_id) " +
-                "VALUES (?,?,?,?,?);");
+                "INSERT INTO account (balance,credit_card_id,bank_id,customer_id) " +
+                "VALUES (?,?,?,?);");
         preparedStatement.setLong(1,account.getBalance());
-        preparedStatement.setString(2,account.getAccountType());
-        preparedStatement.setLong(3,account.getCustomerId());
-        preparedStatement.setInt(4,account.getBankId());
-        preparedStatement.setInt(5,account.getCreditCardId());
+        preparedStatement.setInt(2,account.getCreditCardId());
+        preparedStatement.setInt(3,account.getBankId());
+        preparedStatement.setInt(4,account.getCustomerId());
         preparedStatement.executeUpdate();
         connection.close();
     }
@@ -51,7 +50,7 @@ public class AccountRepository {
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            return resultSet.getInt("bankExist") > 0;
+            return resultSet.getInt("accountExist") > 0;
         }
         return false;
     }
@@ -60,12 +59,11 @@ public class AccountRepository {
         if(account.getId() != null){
             if(existsById(account.getId())){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
-                        "UPDATE account SET balance = ? , accountType = ? ,customerId = ? , bankId = ?,creditCardId = ?;");
+                        "UPDATE account SET balance = ? ,creditCardId = ?,bank_id = ?, customer_id = ?;");
                 preparedStatement.setLong(1,account.getBalance());
-                preparedStatement.setString(2,account.getAccountType());
-                preparedStatement.setInt(3,account.getCustomerId());
-                preparedStatement.setInt(4,account.getBankId());
-                preparedStatement.setInt(1,account.getCreditCardId());
+                preparedStatement.setInt(2,account.getCreditCardId());
+                preparedStatement.setInt(3,account.getBankId());
+                preparedStatement.setInt(4,account.getCustomerId());
                 preparedStatement.executeUpdate();
                 connection.close();
             }
@@ -84,20 +82,19 @@ public class AccountRepository {
         }
     }
 
-    /*public Account findById(ََInteger id) throws SQLException {
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "SELECT * FROM account WHERE id = ?;");
+    public Account findById(Integer id) throws SQLException {
+                PreparedStatement preparedStatement = connection
+                        .prepareStatement("SELECT * FROM account WHERE id = ?;");
                 preparedStatement.setLong(1,id);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 Account account1 = new Account(resultSet.getInt("id")
                         ,resultSet.getLong("balance")
-                        ,resultSet.getString("account_type")
-                        ,resultSet.getInt("customer_id")
+                        ,resultSet.getString("creditCardId")
                         ,resultSet.getInt("bank_id")
-                        ,resultSet.getInt("credit_card_id"));
+                        ,resultSet.getInt("customer_id"));
         return account1;
-    }*/
+    }
 
     public List<Account> showCustomerAccounts(Integer customerId) throws SQLException {
         if(customerId != null) {
@@ -110,17 +107,14 @@ public class AccountRepository {
                 List<Account> accounts = new ArrayList<>();
                 while(resultSet.next()) {
                     accounts.add(new Account(resultSet.getInt("id")
-                            , resultSet.getLong("balance")
-                            , resultSet.getString("account_type")
-                            , resultSet.getInt("customer_id")
-                            , resultSet.getInt("bank_id")
-                            , resultSet.getInt("credit_card_id")));
+                            ,resultSet.getLong("balance")
+                            ,resultSet.getString("creditCardId")
+                            ,resultSet.getInt("bank_id")
+                            ,resultSet.getInt("customer_id")));
                 }
                 return accounts;
             }
         }
         return null;
     }
-
-
 }
