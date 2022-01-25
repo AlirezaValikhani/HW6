@@ -4,50 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends Person{
-    private Integer accountId;
-    private Integer customerId;
+    private Integer bankId;
     private List<Account> accounts;
-    private List<Customer> customers;
 
     public Customer() {
         this.accounts = new ArrayList<Account>();
-        this.customers = new ArrayList<Customer>();
     }
 
-    public Customer(Integer accountId,Integer customerId,String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer id, List<Account> accounts,List<Customer> customers) {
+    public Customer(String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer id,Integer bankId, List<Account> accounts) {
         super(firstName, lastName, nationalCode, phoneNumber, email, address, id);
-        this.accountId = accountId;
-        this.customerId = customerId;
+        this.bankId =bankId;
         this.accounts = new ArrayList<Account>();
-        this.customers = new ArrayList<Customer>();
     }
 
-    public Customer(int id, String first_name, String last_name, String national_code, String phone_number, String email, String address, int account_id, int customer_id) {
+    public Integer getBankId() {
+        return bankId;
     }
 
-
-    public Integer getAccountId() {
-        return accountId;
+    public void setBankId(Integer bankId) {
+        this.bankId = bankId;
     }
 
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
+    public Customer(String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer accountId) {
     }
 
     public List<Account> getAccounts() {

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public abstract class Person {
     private String firstName;
     private String lastName;
@@ -19,7 +21,7 @@ public abstract class Person {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.id = id;
+        this.id =id;
     }
 
     public String getFirstName() {

@@ -1,4 +1,4 @@
-package Repositories;
+package repositories;
 
 import model.BankBranch;
 import model.Customer;
@@ -10,40 +10,41 @@ import java.sql.SQLException;
 public class BankBranchCustomerRepository {
     private Connection connection;
 
+
     public BankBranchCustomerRepository(Connection connection) {
         this.connection = connection;
     }
 
     public void creatBankBranchCustomerTable() throws SQLException {
-        String bankBranchTable = "CREATE TABLE IF NOT EXISTS bank_branch_customer(" +
+        String bankBranchCustomerTable = "CREATE TABLE IF NOT EXISTS bank_branch_customer(" +
                 "id                SERIAL PRIMARY KEY," +
                 "customer_id       INTEGER ," +
                 "bank_branch_id    INTEGER," +
-                "CONSTRAINT fk_customer REFERENCES customer(id)," +
-                "CONSTRAINT fk_bank_branch REFERENCES bank_branch(id)" +
-                ")";
-        connection.prepareStatement(bankBranchTable).execute();
-        connection.close();
+                "FOREIGN KEY (customer_id) REFERENCES customer(id)," +
+                "FOREIGN KEY (bank_branch_id) REFERENCES bank_branch(id)" +
+                ");";
+        PreparedStatement preparedStatement = connection.prepareStatement(bankBranchCustomerTable);
+        preparedStatement.execute();
     }
 
 
-    public void insertIntoBankBranchCustomer(Integer id,BankBranch bankBranch) throws SQLException {
+    public void insertIntoBankBranchCustomer(Integer id, BankBranch bankBranch, Customer customer) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO bank_branch_customer (id,customer_id,bank_branch_id) VALUES (?,?,?);");
         preparedStatement.setInt(1,id);
-        preparedStatement.setInt(2,bankBranch.getCustomerId());
+        preparedStatement.setInt(2,customer.getId());
         preparedStatement.setInt(3,bankBranch.getId());
         preparedStatement.executeUpdate();
         connection.close();
     }
 
-    public void update(Integer id,BankBranch bankBranch) throws SQLException {
+    public void update(Integer id,BankBranch bankBranch,Customer customer) throws SQLException {
         if(bankBranch.getId() != null){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
                         "UPDATE bank_branch_customer SET id = ? , customer_id = ? ,bank_branch_id = ?;");
-                preparedStatement.setInt(1,id);
-                preparedStatement.setInt(2,bankBranch.getCustomerId());
-                preparedStatement.setInt(3,bankBranch.getId());
+            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(2,customer.getId());
+            preparedStatement.setInt(3,bankBranch.getId());
                 preparedStatement.executeUpdate();
                 connection.close();
             }

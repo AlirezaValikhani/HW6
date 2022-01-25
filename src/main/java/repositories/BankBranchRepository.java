@@ -1,6 +1,5 @@
-package Repositories;
+package repositories;
 
-import model.Account;
 import model.BankBranch;
 
 import java.sql.Connection;
@@ -18,25 +17,18 @@ public class BankBranchRepository {
     public void creatBankBranchTable() throws SQLException {
         String bankBranchTable = "CREATE TABLE IF NOT EXISTS bank_branch(" +
                 "id             SERIAL PRIMARY KEY," +
-                "name           VARCHAR (255)," +
-                "account_id     INTEGER ," +
-                "customer_id    INTEGER ," +
-                "employee_id    INTEGER," +
-                "CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employee(id);" +
-                ")";
-        connection.prepareStatement(bankBranchTable).execute();
-        connection.close();
+                "bank_name           VARCHAR (255)" +
+                ");";
+    PreparedStatement preparedStatement = connection.prepareStatement(bankBranchTable);
+    preparedStatement.execute();
     }
 
     public void insertIntoBankBranch(BankBranch bankBranch) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO account (name,account_id,customer_id,employee_id) VALUES (?,?,?,?);");
-        preparedStatement.setString(1,bankBranch.getName());
-        preparedStatement.setInt(2,bankBranch.getAccountId());
-        preparedStatement.setInt(3,bankBranch.getCustomerId());
-        preparedStatement.setInt(4,bankBranch.getEmployeeId());
+                "INSERT INTO bank_branch (id ,bank_name) VALUES (?,?);");
+        preparedStatement.setInt(1,bankBranch.getId());
+        preparedStatement.setString(2,bankBranch.getBankName());
         preparedStatement.executeUpdate();
-        connection.close();
     }
 
     public boolean existsById(Integer id) throws SQLException {
@@ -55,11 +47,9 @@ public class BankBranchRepository {
         if(bankBranch.getId() != null){
             if(existsById(bankBranch.getId())){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
-                        "UPDATE bank_branch SET name = ? , account_id = ? ,customerId = ? , employee_id = ?;");
-                preparedStatement.setString(1,bankBranch.getName());
-                preparedStatement.setInt(2,bankBranch.getAccountId());
-                preparedStatement.setInt(3,bankBranch.getCustomerId());
-                preparedStatement.setInt(1,bankBranch.getEmployeeId());
+                        "UPDATE bank_branch SET id = ? ,bank_name = ?;");
+                preparedStatement.setInt(1,bankBranch.getId());
+                preparedStatement.setString(2,bankBranch.getBankName());
                 preparedStatement.executeUpdate();
                 connection.close();
             }
@@ -78,19 +68,16 @@ public class BankBranchRepository {
         }
     }
 
-    /*public BankBranch findById(ََBankBranch bankBranch) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(
-                "SELECT * FROM bank_branch WHERE id = ?;");
+    public BankBranch findById(BankBranch bankBranch) throws SQLException {
+        String s = "SELECT * FROM bank_branch WHERE id = ?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(s);
         preparedStatement.setLong(1, bankBranch.getId());
         ResultSet resultSet = preparedStatement.executeQuery();
         BankBranch bankBranch1 = null;
         while(resultSet.next()) {
             bankBranch1 = new BankBranch(resultSet.getInt("id")
-                    , resultSet.getString("name")
-                    , resultSet.getInt("account_id")
-                    , resultSet.getInt("customer_id")
-                    , resultSet.getInt("employee_id"));
+                    , resultSet.getString("bank_name"));
         }
         return bankBranch1;
-    }*/
+    }
 }

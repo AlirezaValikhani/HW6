@@ -6,34 +6,50 @@ import java.util.List;
 
 public class CreditCard {
     private Integer id;
-    private Integer secondPassword;
-    private Integer cardNumber;
+    private String password;
+    private Long balance;
+    private String secondPassword;
+    private String cardNumber;
     private String holderName;
-    private Integer accountBalance;
-    private Integer CVV2;
+    private String CVV2;
     private Date expirationDate;
-    private Integer accountId;
-    private Integer transactionId;
     private Account account;
     private List<Transaction> transactions;
 
-    public CreditCard() {
+    /*public CreditCard() {
         this.transactions = new ArrayList<Transaction>();
-    }
+    }*/
 
-    public CreditCard(Integer id,Integer secondPassword,Integer cardNumber, String holderName, Integer accountBalance,Integer CVV2, Date expirationDate,Integer accountId,Integer transactionId, Account account, List<Transaction> transactions) {
+    public CreditCard(Integer id,String password,Long balance,String secondPassword,String cardNumber, String holderName,String CVV2, Date expirationDate, Account account, List<Transaction> transactions) {
         this.id =id;
+        this.password =password;
+        this.balance =balance;
         this.secondPassword = secondPassword;
         this.cardNumber = cardNumber;
         this.holderName = holderName;
-        this.accountBalance = accountBalance;
         this.CVV2 = CVV2;
         this.expirationDate = expirationDate;
-        this.accountId = accountId;
-        this.transactionId = transactionId;
         this.account = account;
         this.transactions = new ArrayList<Transaction>();
     }
+
+    public CreditCard(int id, long balance, String password, String second_password, String card_number, String holder_name, String cvv2, java.sql.Date expirationDate) {
+        this.id =id;
+        this.password =password;
+        this.balance =balance;
+        this.secondPassword = second_password;
+        this.cardNumber = card_number;
+        this.holderName = holder_name;
+        this.CVV2 = cvv2;
+        this.expirationDate = expirationDate;
+        this.transactions = new ArrayList<Transaction>();
+    }
+
+    public CreditCard(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -43,35 +59,35 @@ public class CreditCard {
         this.id = id;
     }
 
-    public Integer getSecondPassword() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
+    public String getSecondPassword() {
         return secondPassword;
     }
 
-    public void setSecondPassword(Integer secondPassword) {
+    public void setSecondPassword(String secondPassword) {
         this.secondPassword = secondPassword;
     }
 
-    public Integer getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    public Integer getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(Integer transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public Integer getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Integer cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
@@ -83,19 +99,11 @@ public class CreditCard {
         this.holderName = holderName;
     }
 
-    public Integer getAccountBalance() {
-        return accountBalance;
-    }
-
-    public void setAccountBalance(Integer accountBalance) {
-        this.accountBalance = accountBalance;
-    }
-
-    public Integer getCVV2() {
+    public String getCVV2() {
         return CVV2;
     }
 
-    public void setCVV2(Integer CVV2) {
+    public void setCVV2(String CVV2) {
         this.CVV2 = CVV2;
     }
 

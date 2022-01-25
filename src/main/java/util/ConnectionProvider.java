@@ -1,7 +1,6 @@
 package util;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -14,10 +13,13 @@ public class ConnectionProvider {
     public static Connection getConnection() {
         if (connection == null){
             try {
-                Class.forName("org.postgresql.BankSystem");
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",
+                Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bank_system",
                         "postgres","Alireza1376");
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            catch(SQLException e){
                 e.printStackTrace();
             }
         }

@@ -4,58 +4,24 @@ import java.util.ArrayList;
 
 public class BankBranch {
     private Integer id;
-    private String name;
-    private Integer accountId;
-    private Integer customerId;
-    private Integer employeeId;
+    private String bankName;
     private ArrayList<Employee> employees;
     private ArrayList<Customer> customers;
     private ArrayList<Account> accounts;
 
-    public BankBranch(Integer id,Integer accountId,Integer customerId,Integer employeeId, String name, ArrayList<Employee> employees, ArrayList<Account> accounts) {
+    public BankBranch(Integer id, String bankName, ArrayList<Employee> employees, ArrayList<Customer> customers, ArrayList<Account> accounts) {
         this.id = id;
-        this.accountId = accountId;
-        this.customerId = customerId;
-        this.employeeId = employeeId;
-        this.name = name;
-        this.employees = new ArrayList<>();
-        this.accounts = new ArrayList<>();
-    }
-
-    public BankBranch(int id, String name, int account_id, int customer_id, int employee_id) {
-    }
-
-    public Integer getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public ArrayList<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(ArrayList<Customer> customers) {
+        this.bankName = bankName;
+        this.employees = employees;
         this.customers = customers;
+        this.accounts = accounts;
     }
+
+    public BankBranch(int id, String bankName) {
+        this.id = id;
+        this.bankName = bankName;
+    }
+
 
     public Integer getId() {
         return id;
@@ -65,12 +31,12 @@ public class BankBranch {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public ArrayList<Employee> getEmployees() {
@@ -79,6 +45,14 @@ public class BankBranch {
 
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
+    }
+
+    public ArrayList<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(ArrayList<Customer> customers) {
+        this.customers = customers;
     }
 
     public ArrayList<Account> getAccounts() {
