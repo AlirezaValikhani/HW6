@@ -22,6 +22,10 @@ public class BankBranch {
         this.bankName = bankName;
     }
 
+    public BankBranch(int id) {
+        this.id = id;
+    }
+
 
     public Integer getId() {
         return id;

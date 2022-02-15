@@ -1,30 +1,64 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Transaction {
     private Integer id;
-    private String showBalance;
-    private String withdraw;
-    private String deposit;
-    private String transfer;
-    private Integer creditCardId;
+    private Timestamp dateTime;
+    private Account sourceAccount;
+    private Account destinationAccount;
+    private TransactionStatus transactionStatus;
+    private TransactionType transactionType;
     private CreditCard creditCard;
 
-    public Transaction(Integer id, String showBalance, String withdraw, String deposit, String transfer,Integer creditCardId, CreditCard creditCard) {
+    public Transaction(Integer id,Timestamp dateTime, Account sourceAccount, Account destinationAccount, TransactionStatus transactionStatus, TransactionType transactionType, CreditCard creditCard) {
         this.id = id;
-        this.showBalance = showBalance;
-        this.withdraw = withdraw;
-        this.deposit = deposit;
-        this.transfer = transfer;
-        this.creditCardId = creditCardId;
+        this.dateTime = dateTime;
+        this.sourceAccount = sourceAccount;
+        this.destinationAccount = destinationAccount;
+        this.transactionStatus = transactionStatus;
+        this.transactionType = transactionType;
         this.creditCard = creditCard;
     }
 
-    public Integer getCreditCardId() {
-        return creditCardId;
+    public Account getSourceAccount() {
+        return sourceAccount;
     }
 
-    public void setCreditCardId(Integer creditCardId) {
-        this.creditCardId = creditCardId;
+    public void setSourceAccount(Account sourceAccount) {
+        this.sourceAccount = sourceAccount;
+    }
+
+    public Account getDestinationAccount() {
+        return destinationAccount;
+    }
+
+    public void setDestinationAccount(Account destinationAccount) {
+        this.destinationAccount = destinationAccount;
+    }
+
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public TransactionStatus getTransactionStatus() {
+        return transactionStatus;
+    }
+
+    public void setTransactionStatus(TransactionStatus transactionStatus) {
+        this.transactionStatus = transactionStatus;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public Integer getId() {
@@ -33,38 +67,6 @@ public class Transaction {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getShowBalance() {
-        return showBalance;
-    }
-
-    public void setShowBalance(String showBalance) {
-        this.showBalance = showBalance;
-    }
-
-    public String getWithdraw() {
-        return withdraw;
-    }
-
-    public void setWithdraw(String withdraw) {
-        this.withdraw = withdraw;
-    }
-
-    public String getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(String deposit) {
-        this.deposit = deposit;
-    }
-
-    public String getTransfer() {
-        return transfer;
-    }
-
-    public void setTransfer(String transfer) {
-        this.transfer = transfer;
     }
 
     public CreditCard getCreditCard() {

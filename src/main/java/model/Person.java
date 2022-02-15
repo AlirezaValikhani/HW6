@@ -3,25 +3,46 @@ package model;
 import java.util.Random;
 
 public abstract class Person {
+    private Integer id;
     private String firstName;
     private String lastName;
+    private String userName;
+    private String password;
     private String nationalCode;
     private String phoneNumber;
-    private String email;
-    private String address;
-    private Integer id;
+
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer id) {
+    public Person(Integer id, String firstName, String lastName, String userName, String password, String nationalCode, String phoneNumber) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
         this.nationalCode = nationalCode;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.id =id;
+    }
+
+    public Person(Integer id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -54,22 +75,6 @@ public abstract class Person {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Integer getId() {

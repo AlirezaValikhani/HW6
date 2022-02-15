@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BankBranchRepository {
     private Connection connection;
@@ -23,11 +24,11 @@ public class BankBranchRepository {
     preparedStatement.execute();
     }
 
-    public void insertIntoBankBranch(BankBranch bankBranch) throws SQLException {
+    public void insertIntoBankBranch(Integer id ,String bankName) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO bank_branch (id ,bank_name) VALUES (?,?);");
-        preparedStatement.setInt(1,bankBranch.getId());
-        preparedStatement.setString(2,bankBranch.getBankName());
+        preparedStatement.setInt(1,id);
+        preparedStatement.setString(2,bankName);
         preparedStatement.executeUpdate();
     }
 
@@ -43,25 +44,25 @@ public class BankBranchRepository {
     }
 
 
-    public void update(BankBranch bankBranch) throws SQLException {
-        if(bankBranch.getId() != null){
-            if(existsById(bankBranch.getId())){
+    public void update(Integer id, String bankName) throws SQLException {
+        if(id != null){
+            if(existsById(id)){
                 PreparedStatement preparedStatement =  connection.prepareStatement(
                         "UPDATE bank_branch SET id = ? ,bank_name = ?;");
-                preparedStatement.setInt(1,bankBranch.getId());
-                preparedStatement.setString(2,bankBranch.getBankName());
+                preparedStatement.setInt(1,id);
+                preparedStatement.setString(2,bankName);
                 preparedStatement.executeUpdate();
                 connection.close();
             }
         }
     }
 
-    public void delete(BankBranch bankBranch) throws SQLException {
-        if (bankBranch.getId() != null) {
-            if (existsById(bankBranch.getId())){
+    public void delete(Integer id, String bankName) throws SQLException {
+        if (id != null) {
+            if (existsById(id)){
                 PreparedStatement preparedStatement = connection.prepareStatement(
                         "DELETE FROM bank_branch WHERE id = ?;");
-                preparedStatement.setInt(1,bankBranch.getId());
+                preparedStatement.setInt(1,id);
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
             }
@@ -75,8 +76,9 @@ public class BankBranchRepository {
         ResultSet resultSet = preparedStatement.executeQuery();
         BankBranch bankBranch1 = null;
         while(resultSet.next()) {
-            bankBranch1 = new BankBranch(resultSet.getInt("id")
-                    , resultSet.getString("bank_name"));
+            bankBranch1 = new BankBranch(resultSet.getInt("id"),
+                    resultSet.getString("bank_name")
+                    );
         }
         return bankBranch1;
     }

@@ -1,6 +1,7 @@
 package services;
 
 import model.Employee;
+import repositories.CustomerRepository;
 import repositories.EmployeeRepository;
 
 import java.sql.SQLException;
@@ -9,32 +10,38 @@ import java.util.Scanner;
 
 public class EmployeeService {
     private EmployeeRepository employeeRepository;
+    private CustomerRepository customerRepository;
     Scanner scanner = new Scanner(System.in);
 
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    public void insertEmployee() throws SQLException {
-        System.out.println("*Welcome to My Bank*");
-        System.out.print("Please enter your first name : ");
-        String firstName = scanner.next();
-        System.out.print("Please enter your last name : ");
-        String lastName = scanner.next();
-        System.out.print("Please enter your national_code : ");
-        String nationalCode = scanner.next();
-        System.out.print("Please enter your phone_number : ");
-        String phoneNumber = scanner.next();
-        System.out.print("Please enter your email : ");
-        String email = scanner.next();
-        System.out.print("Please enter your address : ");
-        String address = scanner.next();
-        Random random = new Random();
-        int randomIdBegin = 1000;
-        int randomIdEnd = 9999;
-        Integer employeeId = (int) (Math.random() * (randomIdEnd - randomIdBegin + 1)) +randomIdBegin;
-        System.out.print("Your id is : " + employeeId);
-        Employee employee = new Employee(firstName,lastName,nationalCode,phoneNumber,email,address,employeeId);
-        employeeRepository.insertIntoEmployee(employee);
+    public void createTableEmployee() throws SQLException {
+        employeeRepository.creatEmployeeTable();
+    }
+
+    public void insertIntoEmployee(String firstName,String lastName,String userName,String password,String nationalCode,String phoneNumber) throws SQLException {
+        employeeRepository.insertIntoEmployee(firstName,lastName,userName,password,nationalCode,phoneNumber);
+    }
+
+    public void updateEmployee(Integer id ,String firstName,String lastName,String userName,String password,String nationalCode,String phoneNumber,Integer bankId) throws SQLException {
+        employeeRepository.update(id,firstName,lastName,userName,password,nationalCode,phoneNumber,bankId);
+    }
+
+    public void deleteEmployee(Integer id) throws SQLException {
+        employeeRepository.delete(id);
+    }
+
+    public Boolean existUserName(String userName) throws SQLException {
+        return employeeRepository.findByUserName(userName).equals(userName);
+    }
+
+    public Boolean existPassword(String password) throws SQLException {
+        return employeeRepository.findByPassword(password).equals(password);
+    }
+
+    public Employee findEmployeeByPassword(String userName) throws SQLException {
+        return employeeRepository.findByUserNameAndGetObject(userName);
     }
 }

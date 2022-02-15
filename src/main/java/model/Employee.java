@@ -1,25 +1,18 @@
 package model;
 
 public class Employee extends Person{
-    private Integer bankId;
+    private BankBranch bankBranch;
 
-
-    public Employee() {
+    public Employee(Integer id, String firstName, String lastName, String userName, String password, String nationalCode, String phoneNumber,BankBranch bankBranch) {
+        super(id, firstName, lastName, userName, password, nationalCode, phoneNumber);
+        this.bankBranch = bankBranch;
     }
 
-    public Employee(String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer id, Integer bankId) {
-        super(firstName, lastName, nationalCode, phoneNumber, email, address, id);
-        this.bankId = bankId;
+    public BankBranch getBankBranch() {
+        return bankBranch;
     }
 
-    public Employee(String firstName, String lastName, String nationalCode, String phoneNumber, String email, String address, Integer employeeId) {
-    }
-
-    public Integer getBankId() {
-        return bankId;
-    }
-
-    public void setBankId(Integer bankId) {
-        this.bankId = bankId;
+    public void setBankBranch(BankBranch bankBranch) {
+        this.bankBranch = bankBranch;
     }
 }
